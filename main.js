@@ -1,12 +1,45 @@
+const { urlencoded } = require('express')
 var express = require('express')
+const { insertNewProduct, getAllProducts, updateProduct, findProductById, findProductByName, deleteProductById } = require('./databaseHandler')
 var app = express()
-var fs = require('fs')
 
 app.set('view engine','hbs')
 app.use(express.urlencoded({extended:true}))
+app.use(express.static('public'))
 
 app.get('/',(req,res)=>{
     res.render('home')
+})
+
+app.get('/new',(req,res)=>{
+    res.render('newProduct')
+})
+
+app.get('/delete',async (req,res)=>{
+    const id = req.query.id
+    await deleteProductById(id)
+    res.redirect('/all')
+})
+
+
+app.get('/all',async (req,res)=>{
+    let results = await getAllProducts()
+    console.log(results)
+    res.render('allProduct',{results:results})
+})
+
+app.post('/new',async (req,res)=>{
+    const name = req.body.txtName
+    const price = req.body.txtPrice
+    const picUrl = req.body.txtPic
+    const newProduct = {
+        name :name,
+        price: Number.parseFloat(price),
+        picture: picUrl
+    }
+    await insertNewProduct(newProduct)
+    res.redirect('/')
+
 })
 
 const PORT = 3000
