@@ -38,7 +38,7 @@ app.post('/new',async (req,res)=>{
         picture: picUrl
     }
     await insertNewProduct(newProduct)
-    res.redirect('/')
+    res.redirect('/all')
 
 })
 
