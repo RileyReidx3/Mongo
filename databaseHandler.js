@@ -18,11 +18,11 @@ async function getAllProducts() {
     let results = await db.collection("products").find().toArray()
     return results
 }
-async function updateProduct(id, name, price, picUrl) {
-    let db = await getDB()
-    await db.collection("products").updateOne({ _id: ObjectId(id) },
-        { $set: { "name": name, "price": price, "picture": picUrl } })
-}
+// async function updateProduct(id, name, price, picUrl) {
+//     let db = await getDB()
+//     await db.collection("products").updateOne({ _id: ObjectId(id) },
+//         { $set: { "name": name, "price": price, "picture": picUrl } })
+// }
 async function findProductById(id) {
     let db = await getDB()
     const productToEdit = await db.collection('products').findOne({ _id: ObjectId(id) })
@@ -39,4 +39,14 @@ async function findProductByName(nameSearch){
     console.log(result)
     return result;
 }
-module.exports = {findProductByName, insertNewProduct,getAllProducts,updateProduct,findProductById,deleteProductById }
+async function postEditProduct(id, name, price, picUrl) {
+    let db = await getDB()
+    await db.collection("products").updateOne({ _id: ObjectId(id) },
+        { $set: { "name": name, "price": price, "picture": picUrl } })
+}
+async function getEditProduct(id) {
+    let db = await getDB()
+    const productToEdit = await db.collection('products').findOne({ _id: ObjectId(id) })
+    return productToEdit
+}
+module.exports = {findProductByName, insertNewProduct,getAllProducts,postEditProduct, getEditProduct,findProductById,deleteProductById }
