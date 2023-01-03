@@ -8,10 +8,11 @@
 </head>
 <body>
     <h1>New Product</h1>
+    <p>{{error}}</p>
     <form action="/new" method="post">
         Name <input type="text" name="txtName">
         <br>
-        Price <input type="text" name="txtPrice">
+        Price <input type="number" name="txtPrice">
         <br>
         Picture URL
         <input type="text" name="txtPic">

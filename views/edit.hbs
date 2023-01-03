@@ -8,11 +8,12 @@
 </head>
 <body>
     <h1 style="color: green;">Edit product</h1>
+    <p>{{error}}</p>
     <form action="/edit" method="post">
         <input type="hidden" name="id" value="{{product._id}}">
         Name <input type="text" name="txtName" value="{{product.name}}">
         <br>
-        Price <input type="text" name="txtPrice" value="{{product.price}}">
+        Price <input type="number" name="txtPrice" value="{{product.price}}">
         <br>
         Picture URL
         <input type="text" name="txtPic" value="{{product.picture}}" size="50">

@@ -1,7 +1,6 @@
 const {MongoClient,ObjectId} = require('mongodb')
 const DATABASE_URL = "mongodb+srv://RealKRipper:khanhpro0303@cluster0.uminl8z.mongodb.net/test"
 
-
 async function insertNewProduct(newProduct) {
     let db = await getDB()
     let id = await db.collection("products").insertOne(newProduct)
@@ -18,16 +17,7 @@ async function getAllProducts() {
     let results = await db.collection("products").find().toArray()
     return results
 }
-// async function updateProduct(id, name, price, picUrl) {
-//     let db = await getDB()
-//     await db.collection("products").updateOne({ _id: ObjectId(id) },
-//         { $set: { "name": name, "price": price, "picture": picUrl } })
-// }
-async function findProductById(id) {
-    let db = await getDB()
-    const productToEdit = await db.collection('products').findOne({ _id: ObjectId(id) })
-    return productToEdit
-}
+
 async function deleteProductById(id) {
     let db = await getDB()
     await db.collection("products").deleteOne({ _id: ObjectId(id) })
@@ -49,4 +39,5 @@ async function getEditProduct(id) {
     const productToEdit = await db.collection('products').findOne({ _id: ObjectId(id) })
     return productToEdit
 }
-module.exports = {findProductByName, insertNewProduct,getAllProducts,postEditProduct, getEditProduct,findProductById,deleteProductById }
+
+module.exports = {insertNewProduct,getAllProducts,postEditProduct, getEditProduct,deleteProductById }

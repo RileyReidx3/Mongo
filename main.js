@@ -1,8 +1,10 @@
 const { urlencoded } = require('express')
 var express = require('express')
-const {findProductByName, insertNewProduct,getAllProducts,postEditProduct, getEditProduct,findProductById,deleteProductById }
+const {insertNewProduct,getAllProducts,postEditProduct, getEditProduct,deleteProductById }
 = require('./databaseHandler')
 var app = express()
+
+
 
 app.set('view engine','hbs')
 app.use(express.urlencoded({extended:true}))
@@ -15,13 +17,6 @@ app.get('/',(req,res)=>{
 app.get('/new',(req,res)=>{
     res.render('newProduct')
 })
-
-app.get('/delete',async (req,res)=>{
-    const id = req.query.id
-    await deleteProductById(id)
-    res.redirect('/all')
-})
-
 app.get('/edit',async (req,res)=>{
     const id = req.query.id
     const productToEdit = await getEditProduct(id)
@@ -35,6 +30,7 @@ app.post('/edit',async (req,res)=>{
     const picUrl = req.body.txtPic
     await postEditProduct(id, name, price, picUrl)
     res.redirect('/all')
+
 })
 
 app.get('/all',async (req,res)=>{
@@ -55,8 +51,10 @@ app.post('/new',async (req,res)=>{
     await insertNewProduct(newProduct)
     res.redirect('/all')
 
+
 })
 
 const PORT = 3000
-app.listen(PORT)
-console.log("Server is running!")
+app.listen(PORT, (req,res)=>{
+    console.log("Server is running!")
+})
