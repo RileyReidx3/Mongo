@@ -43,6 +43,9 @@ app.post('/new',async (req,res)=>{
     const name = req.body.txtName
     const price = req.body.txtPrice
     const picUrl = req.body.txtPic
+    if (price > 50 || price < 100){
+        res.render('newProduct', {error: 'invalid number'})
+    } else {
     const newProduct = {
         name :name,
         price: Number.parseFloat(price),
@@ -50,8 +53,7 @@ app.post('/new',async (req,res)=>{
     }
     await insertNewProduct(newProduct)
     res.redirect('/all')
-
-
+}
 })
 
 const PORT = 3000

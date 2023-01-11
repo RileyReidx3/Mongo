@@ -22,13 +22,6 @@ async function deleteProductById(id) {
     let db = await getDB()
     await db.collection("products").deleteOne({ _id: ObjectId(id) })
 }
-async function findProductByName(nameSearch){
-    let db = await getDB()
-    const result = await db.collection("products").find({name: new RegExp(nameSearch, 'i')}).toArray()
-    console.log(nameSearch)
-    console.log(result)
-    return result;
-}
 async function postEditProduct(id, name, price, picUrl) {
     let db = await getDB()
     await db.collection("products").updateOne({ _id: ObjectId(id) },
